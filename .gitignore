@@ -1,0 +1,8 @@
+src/QPSolution/.vs/
+src/QPSolution/x64/
+src/QPSolution/Test/x64/
+src/QPSolution/Test/Debug/
+src/QPSolution/Q-Pacman/x64/
+src/QPSolution/ProtoEng/x64/
+src/QPSolution/ProtoEng/Debug/
+*.db

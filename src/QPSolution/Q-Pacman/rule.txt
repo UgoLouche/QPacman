@@ -1,0 +1,95 @@
+Rules and stuff
+
+Note: I'am bad at keeping stuff up to date, although I tend to comment my code when I think
+of something... If the information you are looking for isn't here, check the relevant source
+file and/or header file. 
+
+Game process:
+	1- Move Player wrt input
+	2- Compute colisions / Update Statistics
+	3- Draw entities
+
+Colision Rules:
+	- Only the player Collide with object, as such there is no need for a grid as it 
+	suffice to test for every individual object if it collides with the player
+
+	-Have an entiry list somewhere, so you don't have to compute collision with 
+	random Drawable in the game layer.
+
+	- Player is in quantum state, that is everywhere. Technically, all object always collide
+	with the player, Colision effect is then weighted according to location probability
+	(possibly 0)
+
+Animation:
+	- Use invertibility ! For any location, you can say where the player come from
+	- Simply compute time to next gameplay update and draw entiry midway. 
+	- Also holds for ghosts, stock direction for ghosts. 
+	- More generally, use regular 16bit register to stock location, and don't care about
+	extra bits for ghosts / gum
+
+Class Break down:
+	-Entity : Anything on the board (not UI) that is drawable
+	-Classic Entity: Non quantum entity, has a single Internal State
+	-Quantum Entity: aka the player, has a full register of Internal State
+
+	- Every entity "act" during a gameplay round. Then everything collide with the player.
+	"Acting" means compute the next position.
+	- Timestep between action, and dealing with smooth animation wrt to frame deltaTime is
+	dealt by the Entity class. 
+	- Subclasses can then acess to the "ActionTimelineRatio" which indicate how much
+	of the time step between two action is elapsed. And then draw themselves accordingly.
+
+Entity:
+	- Ghosts
+	- Gum
+	- Super Gum
+	- Player
+
+Player:
+	-Use an array indexed by ints internal state value (16 bits)
+	-Specify subset of cell with mask.
+	-Acess done in O(register_size) for cell specified with a mask
+	-Should achieve minimal size, and good acess time for multiple cell
+	-Single cell acess is something like 16 time slower though ?
+	-Can't see when single cell acess is needed, especially with orientation
+
+Board:
+	- 25*25 px per cell
+	- 32 cells wide (800 px)
+	- 20 cells tall (500 px)
+	- 100px reserved for UI
+
+Layers:
+	- 3 Layers
+	- First is for game objects
+	- Second is for UI
+	- Third is for message over the game Board (PAUSE, GAME OVER etc)
+
+Quantum operation (this is just a note)
+	- Quantum operation applies on the two directional bit ONLY
+	- You can decompose calculation as follow:
+		- Every Internal State s1 can be regrouped with three other s2, s3, s4.
+		These 4 states only differ because of their direction.
+		- Since Quantum operation only modify direction, every state only depends of its
+		three sibling states and computation can be reduced to operations on
+		2 Qbits expressed in the basis of s1, s2, s3, s4.
+		- For each q State, compute its 3 siblings, and combine their values.
+
+Ghost AI:
+	- At a low level, ghosts simply pick a target tile and go in straight line to it.
+	- Ghosts have two mode for picking a tile: Scatter and chase
+	- For each mode, ghosts may have different personalities (ie strategies)
+	- Scatter
+		- Ghosts target a random tile in a subsection of the board
+		- When tile is reached, another one is picked in the same way
+		- Switch mode after a predefined amount of turn
+	- Chase
+		- Ghosts pick a Pacman according to their personality (closest, most probable, ...)
+		- Ghosts keep track of the pacman by tracking inputs
+		- When a ghosts split and the ghost cannot make a choice ( e;g. hadamar + most probable)
+			the ghosts pick one of the resulting ghosts at random
+		- Switch mode once a target is catched or after a predefined amount of time
+		- Catching other pacman than target does not change state
+	- Ghost can move through edges and compute shortest paths wrt that.
+	- Obviously, ghosts got eaten when in Super
+	
