@@ -6,3 +6,4 @@ src/QPSolution/Q-Pacman/x64/
 src/QPSolution/ProtoEng/x64/
 src/QPSolution/ProtoEng/Debug/
 *.db
+*.log
