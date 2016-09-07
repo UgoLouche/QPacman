@@ -85,7 +85,7 @@ void QuantumEntity::draw(sf::RenderTarget & target, sf::RenderStates states) con
 				states,
 				posf,
 				tmp.getDirectionAngle(),
-				(int)(c_norm * 255),
+				(int)( (0.5 + c_norm) / 1.5 * 255), //Minimal threshold for alpha.
 				tmp.getSuper()
 			);
 

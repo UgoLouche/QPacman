@@ -172,7 +172,7 @@ void QPacman::setBoard()
 			b = new ProtoEng::Box();
 			b->setPosition(sf::Vector2f((float)i, (float)j));
 			b->setDimensions(sf::Vector2f(25, 25));
-			b->setBorderProperties(sf::Color::Red, 2);
+			b->setBorderProperties(sf::Color::Red, 1);
 			world.registerElement(LayerTypes::GameEntity, b);
 		}
 	}
