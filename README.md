@@ -4,7 +4,7 @@ This project is a Pacman inspired game where the player follows the rule on quan
 
 For technical reasons, some elements of a classic Pacman game couldn't make it (walls, for instance, are a pain to handle in reversible programming).
 
-A more detailed manual will detail the math behind the Quantum part of the game and precise the game’s mechanics. Meanwhile, some game-play rules are explained in src/QPSolution/Q-Pacman/rules.txt and directly into the source code (in particular, look for QuantumState.h for a more detailed insight of the quantum aspect).
+~~A more detailed manual will detail the math behind the Quantum part of the game and precise the game’s mechanics.~~ Meanwhile, some game-play rules are explained in src/QPSolution/Q-Pacman/rules.txt and directly into the source code (in particular, look for QuantumState.h for a more detailed insight of the quantum aspect).
 
 Source code created in Visual Studio, you /should* be able to compile directly from the repository's solution file src/QPSolution/QPSolution.sln .
 
@@ -14,7 +14,7 @@ Powered by SFML for graphic rendering.
 
 #####Content
 - The binary folder contains an optimized executable of the game with all required files, not thoroughly tested though so it may not work.
-- The manual folder will contain a proper manual detailing the nasty tidbits about quantum mechanics and its emulation within the game as well as the LaTex source for it.
+- The manual folder contains a tentative manual detailing the nasty tidbits about quantum mechanics and its emulation within the game as well as the LaTex source for it.
 - the src folder contains the VS's solution for the project as well as the required headers and .lib files from SFML
 - the VS's solution is split in three projects
   - ProtoEng is a SFML wrapper acting as a very basic game engine. Also it's a good excuse to play with dll in VS.
@@ -27,8 +27,8 @@ Powered by SFML for graphic rendering.
 - I am aware that Quantum libraries exist in C++, but then where's the fun ? Also, a general purpose quantum library might not be suited for the very specific needs this project has.
 
 ###TODO
-- Graphic overhaul (right now everything is ugly)
-- Manual
+- Graphic tweaks (some things are still ugly)
+- Finish Manual
 - Game play tweaks
 - Profiling/optimize
 - Test Binary and release version
